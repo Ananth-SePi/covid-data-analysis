@@ -1,0 +1,26 @@
+<div class="container">
+	<h2 class="container-header">
+		India Covid-19 Data Analysis</h2>
+	<div class="container-body">
+		<table class="data-table">
+			<thead>
+				<tr>
+					<td>State</td>
+					<td>Total Confirmed</td>
+					<td>Total Active</td>
+					<td>Total Recovered</td>
+					<td>Total Deaths</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let statewiseData of filteredStatewiseCasesDataList">
+					<td>{{statewiseData.state}}</td>
+					<td>{{statewiseData.confirmed}}</td>
+					<td>{{statewiseData.active}}</td>
+					<td>{{statewiseData.recovered}}</td>
+					<td>{{statewiseData.deaths}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

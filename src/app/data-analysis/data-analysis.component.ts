@@ -85,6 +85,7 @@ export class DataAnalysisComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
+  // To get the state wise covid-19 test data.
   async getStateWiseTestJSON(): Promise<StateWiseTestDataModelWrapper> {
     const response = await fetch('https://api.covid19india.org/state_test_data.json');
     if (!response.ok) {
@@ -93,12 +94,17 @@ export class DataAnalysisComponent implements OnInit {
     return await response.json();
   }
 
+  // To get the state wise covid-19 cases data.
   async getStateWiseDataJSON(): Promise<StateWiseCasesDataModelWrapper> {
     const response = await fetch('https://api.covid19india.org/data.json');
     if (!response.ok) {
       throw new Error(response.statusText);
     }
     return await response.json();
+  }
+
+  openProjectGithub() {
+    window.open('https://github.com/Ananth-SePi/covid-data-analysis', '_blank');
   }
 
 }

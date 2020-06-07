@@ -49,19 +49,22 @@ export class DataAnalysisComponent implements OnInit {
   }
 
   filterStatewiseTestData() {
-    const currentDate = new Date();
-    const currentDateString = this.datePipe.transform(currentDate.toLocaleDateString(), 'dd/MM/yyyy');
-    currentDate.setDate(currentDate.getDate() - 1);
-    const prevDateString = this.datePipe.transform(currentDate.toLocaleDateString(), 'dd/MM/yyyy');
-    this.statewiseTestDataList.forEach(testData => {
-      if (testData.totaltested && testData.updatedon === currentDateString && !this.uniqueStates.has(testData.state)) {
-        this.filteredStatewiseTestDataList.push(testData);
-        this.uniqueStates.set(testData.state, testData.state);
-      } else if (testData.totaltested && testData.updatedon === prevDateString && !this.uniqueStates.has(testData.state)) {
-        this.filteredStatewiseTestDataList.push(testData);
-        this.uniqueStates.set(testData.state, testData.state);
-      }
-    });
+    if (this.statewiseTestDataList.length > 0) {
+      let prevState = this.statewiseTestDataList[0].state;
+      this.statewiseTestDataList.sort((a, b) => {
+          if (a.state === b.state) {
+            return Number(a.totaltested) - Number(b.totaltested);
+          }
+          return a.state > b.state ? 1 : -1;
+      });
+      this.statewiseTestDataList.forEach((testData, index) => {
+        if (!testData.state.includes(prevState)) {
+          this.filteredStatewiseTestDataList.push(this.statewiseTestDataList[index - 1]);
+        }
+        prevState = testData.state;
+      });
+      this.filteredStatewiseTestDataList.push(this.statewiseTestDataList[this.statewiseTestDataList.length - 1]);
+    }
     this.filteredStatewiseTestDataList.forEach((stateTestData) => {
       const stateCaseData: StateWiseCasesDataModel = this.filteredStatewiseCasesDataList
       .filter(caseData => caseData.state === stateTestData.state)[0];

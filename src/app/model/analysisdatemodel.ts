@@ -10,8 +10,8 @@ export interface AnalysisDateModel {
     testsperthousand: number;
     totaltested: number;
     updatedon: string;
-    recoveryratio: number;
-    deathratio: number;
+    recoveryrate: number;
+    deathrate: number;
 
     populationncp2019projection?: number;
     deltaconfirmed?: string;

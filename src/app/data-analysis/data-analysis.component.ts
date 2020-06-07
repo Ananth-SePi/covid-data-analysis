@@ -25,7 +25,7 @@ export class DataAnalysisComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   displayedColumns = ['index', 'state', 'confirmed', 'active', 'recovered', 'deaths',
-  'totaltested', 'recoveryratio', 'deathratio'];
+  'totaltested', 'recoveryrate', 'deathrate'];
 
   uniqueStates = new Map<string, string>();
 
@@ -80,8 +80,8 @@ export class DataAnalysisComponent implements OnInit {
         testsperthousand: !stateTestData.testsperthousand ? null : Number(stateTestData.testsperthousand),
         testsperpositivecase: !stateTestData.testsperpositivecase ? null : Number(stateTestData.testsperpositivecase),
         updatedon: stateTestData.updatedon,
-        recoveryratio: Number(((Number(stateCaseData.recovered) / Number(stateCaseData.confirmed)) * 100).toFixed(2)),
-        deathratio: Number(((Number(stateCaseData.deaths) / Number(stateCaseData.confirmed)) * 100).toFixed(2))
+        recoveryrate: Number(((Number(stateCaseData.recovered) / Number(stateCaseData.confirmed)) * 100).toFixed(2)),
+        deathrate: Number(((Number(stateCaseData.deaths) / Number(stateCaseData.confirmed)) * 100).toFixed(2))
       });
     });
     this.dataSource = new MatTableDataSource(this.analysisDataList);
